@@ -1,11 +1,27 @@
-def post_payload():
+import pytest 
 
+@pytest.fixture
+def get_info():
     return {
-        "title": "foo",
-        "userId": 1,
-        "body": "bar"
+        "me": {
+            "name": "Elvin",
+            "sex": "male",
+            "age": "32"
+        },
+        "you": {
+            "name": "Nika",
+            "sex": "female",
+            "age": "36"
+        }
     }
 
+def test_me_name(get_info):
+    updated_info = {**get_info, "you": {
+        **get_info["you"],
+        "name": "Nazrin"
+    }}
+    
+    assert updated_info["you"]["name"] == "Nazrin"
+    
+    
 
-a = post_payload()
-print(a)
