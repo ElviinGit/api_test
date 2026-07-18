@@ -54,3 +54,5 @@ def get_config(environment: str = None) -> Config:
         _config_instance = Config(env)
     
     return _config_instance
+
+

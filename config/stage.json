@@ -1,6 +1,6 @@
 {
   "base_url": "https://jsonplaceholder.typicode.com",
-  "timeout": 10,
-  "retry_attempts": 3,
+  "timeout": 20,
+  "retry_attempts": 5,
   "log_level": "INFO"
 }
