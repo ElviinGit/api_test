@@ -1,19 +1,32 @@
-def logger(inner_function):
-    def wrapper():
-        print("Function started...")
-        inner_function()
-        print("Function finished")  
-    return wrapper
+import time
+from datetime import datetime
 
-# wiht an syntactic sugar, we can use the @ symbol to apply the decorator to a function. This is equivalent to writing login = logger(login) after the function definition.
-# @logger 
+
+def session(func):
+    def inner(*args, **kwargs):
+        start = datetime.now()
+        print(f"Session Started...{start}")
+        product = func(*args, **kwargs)
+        end = datetime.now()
+        print(f"Session Ended. at this time{end}")
+        return product
+    return inner
+
+
 def login():
-    print("Logging in...")  
+    print("Login Process Starting...")
 
+def authenticate():
+    time.sleep(3)
+    print("Authenticating")
 
-# login()
+def greet(name):
+    print(f"hi {name}")
 
-# with older versions of Python, we can use the decorator syntax without the @ symbol. This is equivalent to writing login = logger(login) after the function definition.
+@session
+def workflow(name="guest"):
+    login()
+    authenticate()
+    greet(name)
 
-decorated_login = logger(login)
-decorated_login()
+workflow("Tupac")
