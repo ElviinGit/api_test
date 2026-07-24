@@ -1,3 +1,4 @@
+from functools import wraps
 # def addition(*args):
 #     return sum(args)
 
@@ -34,19 +35,26 @@
 
 counter = 0
 
-def login():
-    while True:
-        global counter
-        try:
-            counter = counter + 1
-            if counter < 3:
-                raise Exception("Network lag")
-            else:
-                print("You've successfully logged")
-                break
-        except Exception as e:
-            print(e)
+def retry(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        attempt = 0 
+        while attempt < 3:
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                attempt = attempt + 1
+                print(e)
+                
+    return inner
         
+@retry
+def login():
 
-
+    global counter
+    counter = counter + 1
+    if counter < 3:            
+        raise Exception("Network lag")      
+    else:
+        print("You've successfully logged")
 login()   
