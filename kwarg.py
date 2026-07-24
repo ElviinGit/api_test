@@ -23,11 +23,30 @@
 # my_details = print_details()  # Output: Age is 30
 # # print(my_details)  # Output: Age is 30
 
-def greet(**kwargs):
-    name = kwargs.get("name", "Guest")
-    age = kwargs.get("age")
-    return f"Hello {name}, age {age}"
+# def greet(**kwargs):
+#     name = kwargs.get("name", "Guest")
+#     age = kwargs.get("age")
+#     return f"Hello {name}, age {age}"
 
-print(greet(name="Elvin"))
-print(greet())  # Hello Guest, age unknown
+# print(greet(name="Elvin"))
+# print(greet())  # Hello Guest, age unknown
     
+
+counter = 0
+
+def login():
+    while True:
+        global counter
+        try:
+            counter = counter + 1
+            if counter < 3:
+                raise Exception("Network lag")
+            else:
+                print("You've successfully logged")
+                break
+        except Exception as e:
+            print(e)
+        
+
+
+login()   
