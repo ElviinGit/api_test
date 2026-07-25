@@ -11,7 +11,9 @@ def retry(func):
                 return result
             except Exception as e:
                 print(e)
-            attempts =+ 1
+            attempts += 1
+        print("Final attempt already done. Now return!")
+        raise Exception("last attempt executed")
     return inner
     
 @retry
