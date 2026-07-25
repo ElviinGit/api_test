@@ -7,8 +7,10 @@ def retry(func):
         attempts = 0 
         while attempts < 6:
             try:
+                print(f"{attempts} time function executing")
                 result = func(*args, **kwargs)
                 return result
+
             except Exception as e:
                 print(e)
             attempts += 1

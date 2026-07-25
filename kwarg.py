@@ -32,29 +32,30 @@ from functools import wraps
 # print(greet(name="Elvin"))
 # print(greet())  # Hello Guest, age unknown
     
+def retry(funcs):
+    @wraps(funcs)
+    def inner(*args, **kwargs):
+        attempts = 0 
+        while attempts < 5:
+            try:
+                print(f"{attempts} time function executing")
+                result = funcs(*args, **kwargs)
+                return result
+            except Exception as e:
+                print(e)
+            attempts += 1
+        print("last attempt almost executeted... now deal with the exception")
+        raise Exception("You're done boy!")
+    return inner    
 
 counter = 0
-
-def retry(func):
-    @wraps(func)
-    def inner(*args, **kwargs):
-        attempt = 0 
-        while attempt < 3:
-            try:
-                return func(*args, **kwargs)
-            except Exception as e:
-                attempt = attempt + 1
-                print(e)
-                
-    return inner
-        
 @retry
 def login():
-
     global counter
     counter = counter + 1
-    if counter < 3:            
-        raise Exception("Network lag")      
-    else:
-        print("You've successfully logged")
-login()   
+    print("I am about to login")
+    if counter < 5:
+        raise Exception("Network Log")
+    return "Youre logged in successfully"
+b = login()
+print(b)
