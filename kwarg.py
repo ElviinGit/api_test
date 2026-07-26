@@ -1,3 +1,4 @@
+import time
 from functools import wraps
 # def addition(*args):
 #     return sum(args)
@@ -32,30 +33,60 @@ from functools import wraps
 # print(greet(name="Elvin"))
 # print(greet())  # Hello Guest, age unknown
     
-def retry(funcs):
-    @wraps(funcs)
-    def inner(*args, **kwargs):
-        attempts = 0 
-        while attempts < 5:
-            try:
-                print(f"{attempts} time function executing")
-                result = funcs(*args, **kwargs)
-                return result
-            except Exception as e:
-                print(e)
-            attempts += 1
-        print("last attempt almost executeted... now deal with the exception")
-        raise Exception("You're done boy!")
-    return inner    
+# def retry(funcs):
+#     @wraps(funcs)
+#     def inner(*args, **kwargs):
+#         attempts = 0 
+#         while attempts < 5:
+#             try:
+#                 print(f"{attempts} time function executing")
+#                 result = funcs(*args, **kwargs)
+#                 return result
+#             except Exception as e:
+#                 print(e)
+#             attempts += 1
+#         print("last attempt almost executeted... now deal with the exception")
+#         raise Exception("You're done boy!")
+#     return inner    
 
-counter = 0
-@retry
+# counter = 0
+# @retry
+# def login():
+#     global counter
+#     counter = counter + 1
+#     print("I am about to login")
+#     if counter < 5:
+#         raise Exception("Network Log")
+#     return "Youre logged in successfully"
+# b = login()
+# print(b)
+
+def retry(times):
+    def decorator_function(func):
+        @wraps(func)
+        def inner(*args, **kwargs):
+            attempt = 0 
+            while attempt < times:
+                try:
+                    print(f"Login started {attempt} time")
+                    result = func(*args, **kwargs)
+                    return result
+                except Exception as e:
+                    print(e)
+                finally:
+                    print("Function exeuted")
+                attempt += 1
+        return inner
+    return decorator_function
+
+@retry(times=5)
 def login():
-    global counter
-    counter = counter + 1
-    print("I am about to login")
-    if counter < 5:
-        raise Exception("Network Log")
-    return "Youre logged in successfully"
-b = login()
-print(b)
+    counter = 0
+    time.sleep(1)
+    if counter < 4:
+        raise Exception("network lag")
+    counter += 1
+    print("Login print is executed")
+    return "User logged in succesfully"
+
+login()
