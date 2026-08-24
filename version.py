@@ -1,7 +1,6 @@
 from functools import wraps
 import time
 
-
 def retry(times):
     def decorator(func):
         @wraps(func)
@@ -30,6 +29,5 @@ def login():
         raise Exception("There was a issues temprorarly, try more")   
     print("login start to print")
     return "You're almost logged in bro!"
-
 
 login()

@@ -1,38 +1,30 @@
 from functools import wraps
-# import argparse
-
-# def message(message_type: str, *args):
-
-#     if not args:
-#         args = ("Anonymous")
-        
-#     elif message_type == "greet":
-#         print(f"Hello! Welcome to the program. {args[0]}")
-
-#     elif message_type == "farewell":
-#         print(f"Goodbye! See you next time. {args[0]}")
-
-#     else:
-#         print("Invalid message type. Please use 'greet' or 'farewell'.")
-
-# result_message = message("", "Alice")
-
-# argaparser = argparse.ArgumentParser(description="Message Type and Name")
-
-# args = argaparser.parse_args()
-
-def my_func(func):
-
+from datetime import datetime
+import time
+def log_test(func):
     @wraps(func)
     def inner(*args, **kwargs):
-        print("inner start")
-        func(*args, **kwargs)
-        print("inner stop")
+        start_time = datetime.now()
+        try:
+            print(f"Test '{func.__name__}' started at {start_time}")
+            result = func(*args, **kwargs)
+            end_time = datetime.now()
+            print(f"Test '{func.__name__}' ended at {end_time}")
+            print(f"Duration: {end_time - start_time}")
+            return result
+        except Exception as e:
+            end_time = datetime.now()
+            print(f"Test '{func.__name__}' ended at {end_time}")
+            print(f"Duration: {end_time - start_time}")
+            print(f"Test '{func.__name__}' failed with exception: {e}")
+            raise
     return inner
 
-@my_func
-def login(name):
-    print(f"Tested by {name}")
+@log_test
+def test_myfunc():
+    time.sleep(1)  # Simulate some work
+    raise Exception("This is a test exception")
 
+test_myfunc()
+    
 
-login("Nika")
