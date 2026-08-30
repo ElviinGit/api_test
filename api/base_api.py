@@ -1,5 +1,5 @@
 import requests
-from utils.logger import logger
+from utils.my_decorator import logger
 from config.config import get_config
 
 class BaseApi:
