@@ -1,6 +1,11 @@
 import time
 from functools import wraps
 from .my_logger import logger
+from pathlib import Path
+from datetime import datetime
+
+ss_dir = Path("screenshots")
+ss_dir.mkdir(exist_ok=True)
 
 
 def log_test(func):
@@ -30,11 +35,14 @@ def take_screenshot_on_failure(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            logger.error(f"Taking screenshot due to failure in {func.__name__}")
-            # Code to take a screenshot would go here
-            raise e
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{func.__name__}_failure_{timestamp}.png"
+            screenshot_path = ss_dir / f"{filename}"
+            # Simulate taking a screenshot (replace with actual screenshot logic)
+            with open(screenshot_path, "wb") as f:
+                f.write(b"Simulated screenshot content")
+            logger.error(f"Screenshot taken: {screenshot_path}")
+            raise 
+        
     return inner
-
-#you have to complete the code in the middle
-
 

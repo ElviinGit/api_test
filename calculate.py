@@ -3,23 +3,13 @@ import time
 from utils.my_decorator import log_test
 from utils.my_decorator import take_screenshot_on_failure
 
-@log_test
-def test_success():
-    """A test that should pass."""
-    time.sleep(1)
 
-@log_test
-@take_screenshot_on_failure
-def test_failure():
-    
-    """A test that should fail."""
-    time.sleep(1)
-    raise Exception("This test is designed to fail.") 
+def calculate_sum(a, b):
+    """After a delay of 2 seconds, this function returns the sum of two numbers."""
+    time.sleep(2)
+    return a + b
 
-try:
-    test_failure()
-except ValueError:
-
-    pass    
-
-
+def calculate_sum_with_exception(a, b):
+    """After a delay of 2 seconds, this function raises a ValueError for demonstration purposes."""
+    time.sleep(2)
+    raise ValueError("This is a test exception for demonstration purposes.")    
