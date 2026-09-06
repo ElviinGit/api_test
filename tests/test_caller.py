@@ -1,15 +1,11 @@
-import calculate
-from utils.my_decorator import log_test, take_screenshot_on_failure
+from decorate import my_decorator
 
-@log_test
-def test_calculate_sum_normal():
-    result = calculate.calculate_sum(3, 5)
-    assert result == 8, f"Expected 8 but got {result}"
+@my_decorator
+def test_login(driver):
+    print("Executing test_login")
+    print(f"-----driver is {driver}")   
+    raise Exception("Simulated error in test_login")
 
-@log_test
-@take_screenshot_on_failure
-def test_calculate_sum_with_exception():
-    
-    calculate.calculate_sum_with_exception(3, 5)
+
 
 

@@ -1,32 +1,18 @@
-import time
-from datetime import datetime
+from functools import wraps
 
-
-def session(func):
+def my_decorator(func):
+    @wraps(func)
     def inner(*args, **kwargs):
-        start = datetime.now()
-        print(f"Session Started...{start}")
-        product = func(*args, **kwargs)
-        end = datetime.now()
-        print(f"Session Ended. at this time{end}")
-        return product
+        print("Function starting decorating")
+        print(f"args: {args}")
+        print(f"kwargs: {kwargs}")
+        try:
+            result = func(*args, **kwargs)
+        except Exception:
+            a = kwargs.get("driver").isdigit()
+            print(a)
+            return a   
+        print("Function finished decorating")   
+        return result
     return inner
 
-
-def login():
-    print("Login Process Starting...")
-
-def authenticate():
-    time.sleep(3)
-    print("Authenticating")
-
-def greet(name):
-    print(f"hi {name}")
-
-@session
-def workflow(name="guest"):
-    login()
-    authenticate()
-    greet(name)
-
-workflow("Tupac")

@@ -50,3 +50,9 @@ def comment_payload():
 def comment_id():
     """Fixture for comment ID"""
     return 1
+
+@pytest.fixture
+def driver():   
+
+    driver = "This is a driver"
+    yield driver    
