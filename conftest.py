@@ -2,7 +2,7 @@ import pytest
 from api.post_api import PostApi
 from api.users_api import UsersApi, CommentsApi
 from data.test_data import POST_PAYLOAD, USER_PAYLOAD, COMMENT_PAYLOAD
-
+from selenium import webdriver
 # Post API fixtures
 @pytest.fixture
 def post_api():
@@ -54,5 +54,4 @@ def comment_id():
 @pytest.fixture
 def driver():   
 
-    driver = "This is a driver"
-    yield driver    
+    raise Exception("Simulated error in driver fixture") 
