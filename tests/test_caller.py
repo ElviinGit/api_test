@@ -1,4 +1,4 @@
-from decorators import my_decorator
+from decorators.decorators import my_decorator
 
 @my_decorator
 def test_login(driver):
