@@ -55,3 +55,7 @@ def comment_id():
 def driver():   
 
     raise Exception("Simulated error in driver fixture") 
+
+@pytest.fixture
+def pytest_runtest_makereport(item, call):
+    print("HOOK CALLED")
